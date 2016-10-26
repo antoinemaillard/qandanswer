@@ -1,0 +1,13 @@
+.container object {float: left;margin: 0 15px;}
+.container {
+    width: 100%;
+    text-align: center;
+    padding-bottom: 25px;
+    height: auto;
+    float: left;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #636FAE;
+    padding-top: 25px;
+}
