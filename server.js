@@ -2,24 +2,32 @@
 
 const express = require('express');
 const SocketServer = require('ws').Server;
-const path = require('path');
 
 const PORT = process.env.PORT || 3000;
-const INDEX = path.join(__dirname, 'public/index.html');
 
 const server = express()
-  .use((req, res) => res.sendFile(INDEX) )
+  .use(express.static('public'))
   .listen(PORT, () => console.log(`Listening on ${ PORT }`));
 
 const wss = new SocketServer({ server });
 
-wss.on('connection', (ws) => {
-  console.log('Client connected');
-  ws.on('close', () => console.log('Client disconnected'));
-});
+/** broadcast message to all clients **/
+wss.broadcast = function (data) {
+  var i = 0, n = this.clients ? this.clients.length : 0, client = null;
+  for (; i < n; i++) {
+    client = this.clients[i];
+    if (client.readyState === client.OPEN) {
+      client.send(data);
+    }
+    else console.error('Error: the client state is ' + client.readyState);
+  }
+};
 
-setInterval(() => {
-  wss.clients.forEach((client) => {
-    client.send(new Date().toTimeString());
+/** successful connection */
+wss.on('connection', function (ws) {
+  /** incomming message */
+  ws.on('message', function (message) {
+    /** broadcast message to all clients */
+    wss.broadcast(message);
   });
-}, 1000);
+});
