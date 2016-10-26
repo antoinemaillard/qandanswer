@@ -25,9 +25,11 @@ wss.broadcast = function (data) {
 
 /** successful connection */
 wss.on('connection', function (ws) {
+  console.log("New connection");
   /** incomming message */
   ws.on('message', function (message) {
     /** broadcast message to all clients */
+    console.log("We received:", message);
     wss.broadcast(message);
   });
 });
