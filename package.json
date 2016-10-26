@@ -1,0 +1,23 @@
+{
+  "name": "qandanswer",
+  "version": "1.0.0",
+  "description": "Simple video chat demo (WebRTC based) for QandAnswer website",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "start": "node server.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/antoinemaillard/qandanswer.git"
+  },
+  "author": "Antoine Maillard",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/antoinemaillard/qandanswer/issues"
+  },
+  "homepage": "https://github.com/antoinemaillard/qandanswer#readme",
+  "engines": {
+    "node": "6.3.1"
+  },
+}
