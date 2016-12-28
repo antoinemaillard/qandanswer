@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>WebRTC Audio Input Detection</title>
+  </head>
+  
+  <body>
+
+    <ul id="inputlist">
+    </ul>
+    
+    <script type="text/javascript">
+
+    function pageReady() {
+      navigator.mediaDevices.enumerateDevices().then(function(MediaDeviceInfo){
+        MediaDeviceInfo.forEach(function(i){
+          var elem = document.createElement("li");
+          elem.innerText = i.label + " | " + i.kind + " | " + i.deviceId;
+          document.getElementById("inputlist").appendChild(elem);
+        });
+      });
+    }
+
+      window.addEventListener("load", pageReady);
+    </script>
+
+  </body>
+</html>
