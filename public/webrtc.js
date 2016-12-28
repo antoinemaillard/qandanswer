@@ -34,7 +34,10 @@ function prepareCall() {
 function initiateCall() {
   prepareCall();
   // get the local stream, show it in the local video element and send it
-  navigator.getUserMedia({ "audio": true, "video": true }, function (stream) {
+  var audioConstraint = {
+    deviceId: {exact: getParameterByName("audioinputid")}
+  }
+  navigator.getUserMedia({ "audio": getParameterByName("audioinputid") ? audioConstraint : true, "video": true }, function (stream) {
     localVideoStream = stream;
     localVideo.src = URL.createObjectURL(localVideoStream);
     peerConn.addStream(localVideoStream);
@@ -45,7 +48,10 @@ function initiateCall() {
 function answerCall() {
   prepareCall();
   // get the local stream, show it in the local video element and send it
-  navigator.getUserMedia({ "audio": true, "video": true }, function (stream) {
+  var audioConstraint = {
+    deviceId: {exact: getParameterByName("audioinputid")}
+  }
+  navigator.getUserMedia({ "audio": getParameterByName("audioinputid") ? audioConstraint : true, "video": true }, function (stream) {
     localVideoStream = stream;
     localVideo.src = URL.createObjectURL(localVideoStream);
     peerConn.addStream(localVideoStream);
@@ -128,3 +134,15 @@ function endCall() {
   localVideo.src = "";
   remoteVideo.src = "";
 };
+
+function getParameterByName(name, url) {
+    if (!url) {
+      url = window.location.href;
+    }
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
