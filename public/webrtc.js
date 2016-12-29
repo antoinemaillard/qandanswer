@@ -121,6 +121,10 @@ function onAddStreamHandler(evt) {
   endCallButton.removeAttribute("disabled"); 
   // set remote video stream as source for remote video HTML5 element
   remoteVideo.src = URL.createObjectURL(evt.stream);
+
+  if(getParameterByName("audiooutputid") !== null){
+    remoteVideo.setSinkId(getParameterByName("audiooutputid"));
+  }
 };
 
 function endCall() {
